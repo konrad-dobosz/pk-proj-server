@@ -1,25 +1,14 @@
 #include "dbhandler.h"
 
-DbHandler::DbHandler()
-{
-}
-
-bool DbHandler::openDatabase()
+bool DbHandler::openDatabase(QString dbName)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("databese1.sqlite");
-    QSqlQuery query;
-
-    query.exec("CREATE TABLE IF NOT EXISTS users (user TEXT, password TEXT)");
+    db.setDatabaseName(dbName + ".sqlite");
 
     return db.open();
 }
 
-bool DbHandler::closeDatabase()
-{
-    db.close();
-    return true;
-}
+void DbHandler::closeDatabase() { db.close(); }
 
 bool DbHandler::authenticateUser(const QString& username, const QString& password)
 {

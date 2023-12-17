@@ -3,14 +3,13 @@
 
 #include <QtSql>
 
-class DbHandler
-{
+class DbHandler {
 public:
-    DbHandler();
-    bool openDatabase();
-    bool closeDatabase();
+    bool openDatabase(QString dbName = "db");
+    void closeDatabase();
     bool authenticateUser(const QString& username, const QString& password);
 
+private:
     QSqlDatabase db;
 };
 
