@@ -5,6 +5,14 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 
+enum class SocketDataType: quint8 {
+    loginReqest,
+    loginResponse,
+    message
+};
+
+Q_DECLARE_METATYPE(SocketDataType);
+
 namespace Ui {
 class MainWindow;
 }
@@ -16,6 +24,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    void write(QTcpSocket *socket, QByteArray &data, SocketDataType type);
 
 public slots:
     void onNewConnection();
