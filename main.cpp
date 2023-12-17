@@ -12,6 +12,7 @@ bool testUserAuthentication(DbHandler& dbHandler, const QString& username, const
 
         // Checking if the user with the specified credentials exists
         QSqlQuery query;
+        query.exec("CREATE TABLE IF NOT EXISTS user (user TEXT, password TEXT)");
         query.prepare("SELECT * FROM users WHERE user = :user AND password = :password");
         query.bindValue(":user", username);
         query.bindValue(":password", password);
@@ -43,14 +44,14 @@ int main(int argc, char *argv[]) {
         qDebug() << "Database opened successfully.";
 
         // Creating an admin user if not already exists
-        QSqlQuery checkUserQuery("SELECT * FROM users WHERE user = 'admin2'");
+        QSqlQuery checkUserQuery("SELECT * FROM users WHERE user = 'admin5'");
 
         if (checkUserQuery.exec() && checkUserQuery.next()) {
             qDebug() << "Admin user already exists.";
         } else {
             // Adding the admin user with password "admin123"
             QSqlQuery insertQuery;
-            insertQuery.prepare("INSERT INTO users (user, password) VALUES ('admin2', 'admin123')");
+            insertQuery.prepare("INSERT INTO users (user, password) VALUES ('admin5', 'admin123')");
 
             if (insertQuery.exec()) {
                 qDebug() << "Admin user added successfully.";
@@ -71,7 +72,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Testing user authentication
-    if (testUserAuthentication(dbHandler, "admin2", "admin123")) {
+    if (testUserAuthentication(dbHandler, "admin", "admin123")) {
         qDebug() << "User authentication test passed. The user exists.";
     } else {
         qDebug() << "User authentication test failed. The user does not exist or invalid credentials.";
