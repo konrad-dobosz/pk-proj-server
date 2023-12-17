@@ -12,7 +12,7 @@ bool testUserAuthentication(DbHandler& dbHandler, const QString& username, const
 
         // Checking if the user with the specified credentials exists
         QSqlQuery query;
-        query.exec("CREATE TABLE IF NOT EXISTS users (user TEXT, password TEXT)");
+        query.exec("CREATE TABLE IF NOT EXISTS user (user TEXT, password TEXT)");
         query.prepare("SELECT * FROM users WHERE user = :user AND password = :password");
         query.bindValue(":user", username);
         query.bindValue(":password", password);
