@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "dbhandler.h"
+#include "socketservice.h"
 #include <QDebug>
 #include <QApplication>
 
@@ -27,6 +28,7 @@ bool testUserAuthentication(DbHandler& dbHandler) {
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
+    SocketService socketService = SocketService();
     DbHandler dbHandler = DbHandler();
 
     if (testUserAuthentication(dbHandler)) {

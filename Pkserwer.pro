@@ -12,11 +12,13 @@ CONFIG += c++17
 SOURCES += \
     dbhandler.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    socketservice.cpp
 
 HEADERS += \
     dbhandler.h \
-    mainwindow.h
+    mainwindow.h \
+    socketservice.h
 
 FORMS += \
     mainwindow.ui
