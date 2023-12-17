@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 #include <QDebug>
 #include <QHostAddress>
 #include <QAbstractSocket>
@@ -27,7 +26,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     _server.listen(QHostAddress::Any, 4242);
     connect(&_server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
+
+
+
 }
+
 
 MainWindow::~MainWindow()
 {
