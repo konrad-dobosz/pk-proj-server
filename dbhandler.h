@@ -8,6 +8,7 @@ public:
     bool openDatabase(QString dbName = "db");
     void closeDatabase();
     bool authenticateUser(const QString& username, const QString& password);
+    bool addFriend(const QString& username, const QString& friendUsername);
 
 private:
     QSqlDatabase db;
