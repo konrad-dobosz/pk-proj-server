@@ -25,10 +25,10 @@ bool DbHandler::authenticateUser(const QString& username, const QString& passwor
 bool DbHandler::addFriend(const QString& username, const QString& friendUsername)
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO friends (user_id, friend_id) "
-                  "SELECT u1.id, u2.id "
-                  "FROM users u1, users u2 "
-                  "WHERE u1.username = :username AND u2.username = :friendUsername");
+    query.prepare("INSERT INTO friends (user_username, friend_username) "
+                  "SELECT :username, :friendUsername "
+                  "WHERE EXISTS (SELECT 1 FROM users u1 WHERE u1.username = :username) "
+                  "AND EXISTS (SELECT 1 FROM users u2 WHERE u2.username = :friendUsername)");
     query.bindValue(":username", username);
     query.bindValue(":friendUsername", friendUsername);
 
