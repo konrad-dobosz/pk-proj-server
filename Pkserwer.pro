@@ -13,11 +13,17 @@ SOURCES += \
     dbhandler.cpp \
     main.cpp \
     mainwindow.cpp \
+    socketdata/socketdata.cpp \
+    socketdata/socketlogin.cpp \
+    socketdata/socketmessage.cpp \
     socketservice.cpp
 
 HEADERS += \
     dbhandler.h \
     mainwindow.h \
+    socketdata/socketdata.h \
+    socketdata/socketlogin.h \
+    socketdata/socketmessage.h \
     socketservice.h
 
 FORMS += \

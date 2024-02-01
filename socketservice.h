@@ -7,13 +7,15 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 
-enum class SocketDataType: quint8 {
-    loginReqest,
-    loginResponse,
-    message
-};
+#include "socketdata/socketdata.h"
 
-Q_DECLARE_METATYPE(SocketDataType);
+//enum class SocketDataType: quint8 {
+//    loginReqest,
+//    loginResponse,
+//    message
+//};
+
+//Q_DECLARE_METATYPE(SocketDataType);
 
 class SocketService : QObject
 {
@@ -21,7 +23,7 @@ class SocketService : QObject
 public:
     SocketService(QObject *parent = nullptr);
 
-    void write(QTcpSocket *socket, QByteArray &data, SocketDataType type);
+    void write(QTcpSocket *socket, SocketData &data);
     bool handleLoginRequest(QString &username, QString &password);
 
 public slots:

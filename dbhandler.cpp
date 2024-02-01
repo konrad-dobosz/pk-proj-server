@@ -16,6 +16,9 @@ bool DbHandler::authenticateUser(const QString& username, const QString& passwor
     query.prepare("SELECT * FROM users WHERE username = :username AND password = :password");
     query.bindValue(":username", username);
     query.bindValue(":password", password);
+
+    qDebug() << "U: " << username << ", P: " << password;
+
     if (query.exec() && query.next()) {
         return true;
     }
@@ -32,5 +35,10 @@ bool DbHandler::addFriend(const QString& username, const QString& friendUsername
     query.bindValue(":username", username);
     query.bindValue(":friendUsername", friendUsername);
 
-    return query.exec();
+    qDebug() << db.lastError().text();
+
+    if (query.exec() && query.next()) {
+        return true;
+    }
+    return false;
 }

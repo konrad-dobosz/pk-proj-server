@@ -5,17 +5,17 @@
 #include <QApplication>
 
 bool testUserAuthentication(DbHandler& dbHandler) {
-    if (dbHandler.openDatabase("db-test")) {
+    if (dbHandler.openDatabase("db")) {
         QSqlQuery createTableQuery;
-        createTableQuery.exec("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT)");
+        createTableQuery.exec("CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY, username TEXT, password TEXT)");
 
         QSqlQuery insertQuery;
         insertQuery.exec("INSERT INTO users (username, password) VALUES ('user', '123')");
 
         bool isAuthenticated = dbHandler.authenticateUser("user", "123");
 
-        QSqlQuery dropTableQuery;
-        dropTableQuery.exec("DROP TABLE users");
+        //QSqlQuery dropTableQuery;
+        //dropTableQuery.exec("DROP TABLE users");
 
         dbHandler.closeDatabase();
 
@@ -28,10 +28,13 @@ bool testUserAuthentication(DbHandler& dbHandler) {
 bool testFriendsAuthentication(DbHandler& dbHandler) {
     if (dbHandler.openDatabase("db-test")) {
         QSqlQuery createTableQuery;
-        createTableQuery.exec("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT)");
+        createTableQuery.exec("CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY, username TEXT, password TEXT)");
 
         QSqlQuery createTableQueryFriends;
-        createTableQueryFriends.exec("CREATE TABLE IF NOT EXISTS friends (user_id INTEGER, friend_id INTEGER, FOREIGN KEY(user_id) REFERENCES users(id), FOREIGN KEY(friend_id) REFERENCES users(id))");
+        createTableQueryFriends.exec(
+            "CREATE TABLE IF NOT EXISTS friends"
+            "(user_id INTEGER, friend_id INTEGER, FOREIGN KEY(user_id)"
+            "REFERENCES users(id), FOREIGN KEY(friend_id) REFERENCES users(id))");
 
         QSqlQuery insertQuery;
         insertQuery.exec("INSERT INTO users (username, password) VALUES ('user', '123')");
@@ -40,8 +43,8 @@ bool testFriendsAuthentication(DbHandler& dbHandler) {
 
         bool isAuthenticated = dbHandler.authenticateUser("user", "123");
 
-        QSqlQuery dropTableQuery;
-        dropTableQuery.exec("DROP TABLE users");
+        //QSqlQuery dropTableQuery;
+        //dropTableQuery.exec("DROP TABLE users");
 
         dbHandler.closeDatabase();
 
@@ -59,8 +62,8 @@ bool testFriendsAuthentication(DbHandler& dbHandler) {
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    SocketService socketService = SocketService();
-    DbHandler dbHandler = DbHandler();
+    SocketService socketService;
+    DbHandler dbHandler;
 
     if (testUserAuthentication(dbHandler)) {
         qDebug() << "User Authentication - PASS";
