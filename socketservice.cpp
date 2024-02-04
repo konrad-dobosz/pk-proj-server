@@ -64,7 +64,7 @@ void SocketService::onReadyRead() {
 
         readStream >> sm;
         for (QTcpSocket* socket : _sockets) {
-            //if (socket != sender)
+            if (socket != sender)
                 write(socket, sm);
                 qDebug() << "Sending msg";
         }

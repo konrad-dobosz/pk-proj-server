@@ -6,7 +6,9 @@ SocketLogin::SocketLogin() {}
 SocketLogin::SocketLogin(QString& username, QString& password)
     : username(username),
     password(password)
-{}
+{
+
+}
 
 QString SocketLogin::getUsername() { return username; }
 QString SocketLogin::getPassword() { return password; }
@@ -20,7 +22,7 @@ void SocketLogin::setPassword(QString &password) {
 }
 
 SocketDataType SocketLogin::type() {
-    return SocketDataType::loginResponse;
+    return SocketDataType::loginRequest;
 }
 
 QDataStream& SocketLogin::readStream(QDataStream &ds) {
@@ -28,13 +30,10 @@ QDataStream& SocketLogin::readStream(QDataStream &ds) {
         ds >> username;
         ds >> password;
     }
-    qDebug() << "Username: " << username << ", password:" << password;
-
     return ds;
 }
 
 QDataStream& SocketLogin::writeStream(QDataStream &ds) {
     ds << username << password;
-    qDebug() << username << password;
     return ds;
 }

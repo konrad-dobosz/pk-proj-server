@@ -8,7 +8,10 @@ class SocketMessage : public SocketData
 {
 public:
     SocketMessage();
-    SocketMessage(QString &message);
+    SocketMessage(QString &message, QString username = "Username");
+
+    QString getMessage();
+    QString getUsername();
 
     virtual SocketDataType type() override;
 
@@ -16,6 +19,7 @@ public:
     virtual QDataStream& writeStream(QDataStream &ds) override;
 
 private:
+    QString _username;
     QString _message;
     QDateTime _dateTime;
 };
