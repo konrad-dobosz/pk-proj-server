@@ -13,7 +13,11 @@ public:
     QString getPassword();
     void setUsername(QString &username);
     void setPassword(QString &password);
-    virtual SocketDataType type();
+
+    virtual SocketDataType type() override;
+
+    virtual QDataStream& readStream(QDataStream &ds) override;
+    virtual QDataStream& writeStream(QDataStream &ds) override;
 
 private:
     QString username;

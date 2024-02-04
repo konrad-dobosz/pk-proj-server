@@ -65,17 +65,17 @@ int main(int argc, char *argv[]) {
     SocketService socketService;
     DbHandler dbHandler;
 
-    if (testUserAuthentication(dbHandler)) {
-        qDebug() << "User Authentication - PASS";
-    } else {
-        qDebug() << "User authentication - FAIL";
-    }
+//    if (testUserAuthentication(dbHandler)) {
+//        qDebug() << "User Authentication - PASS";
+//    } else {
+//        qDebug() << "User authentication - FAIL";
+//    }
 
-    if (testFriendsAuthentication(dbHandler)) {
-        qDebug() << "Fiend Authentication - PASS";
-    } else {
-        qDebug() << "Fiend authentication - FAIL";
-    }
+//    if (testFriendsAuthentication(dbHandler)) {
+//        qDebug() << "Fiend Authentication - PASS";
+//    } else {
+//        qDebug() << "Fiend authentication - FAIL";
+//    }
 
     MainWindow w;
     w.show();

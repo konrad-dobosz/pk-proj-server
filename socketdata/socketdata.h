@@ -17,6 +17,9 @@ public:
     SocketData();
 
     virtual SocketDataType type() = 0;
+
+    virtual QDataStream& readStream(QDataStream &ds) = 0;
+    virtual QDataStream& writeStream(QDataStream &ds) = 0;
 };
 
 QDataStream &operator<< (QDataStream &ds, SocketData &data);

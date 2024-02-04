@@ -1,6 +1,5 @@
 #include "socketdata.h"
 
-
 QDataStream &operator<< (QDataStream &ds, SocketDataType data) {
     return ds << (quint8)data;
 }
@@ -16,11 +15,11 @@ QDataStream &operator>> (QDataStream &ds, SocketDataType data) {
 }
 
 QDataStream &operator<< (QDataStream &ds, SocketData &data) {
-    return ds;
+    return data.writeStream(ds);;
 }
 
 QDataStream &operator>> (QDataStream &ds, SocketData &data) {
-    return ds;
+    return data.readStream(ds);;
 }
 
 SocketData::SocketData() {}

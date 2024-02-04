@@ -33,9 +33,6 @@ void SocketService::onReadyRead() {
     QTcpSocket* sender = static_cast<QTcpSocket*>(QObject::sender());
     QDataStream readStream(sender);
 
-    QString test = sender->readAll();
-    qDebug() << test;
-
     quint16 size;
     quint8 type;
 
@@ -44,6 +41,8 @@ void SocketService::onReadyRead() {
     if (sender->bytesAvailable() < size) return;
 
     readStream >> type;
+
+    qDebug() << "TYPE READ: " << type;
 
     if (SocketDataType(type) == SocketDataType::loginRequest) {
         SocketLogin sl;
@@ -55,19 +54,19 @@ void SocketService::onReadyRead() {
 
         qDebug() << "LR - U: " << username << ", P: " << password;
 
-        bool isAuthenticated = handleLoginRequest(username, password);
+        //bool isAuthenticated = handleLoginRequest(username, password);
 
-        qDebug() << isAuthenticated;
+        //qDebug() << isAuthenticated;
 
         write(sender, sl);
     } else if (SocketDataType(type) == SocketDataType::message) {
         SocketMessage sm;
 
         readStream >> sm;
-
         for (QTcpSocket* socket : _sockets) {
-            if (socket != sender)
+            //if (socket != sender)
                 write(socket, sm);
+                qDebug() << "Sending msg";
         }
     }
 }
@@ -85,6 +84,8 @@ void SocketService::write(QTcpSocket *socket, SocketData &data) {
     writeStream << data;
     writeStream.device()->seek(0);
     writeStream << quint16(streamData.size() - sizeof(quint16));
+
+    qDebug() << "Sending type: " << (int)data.type();
 
     socket->write(streamData);
     socket->waitForBytesWritten();

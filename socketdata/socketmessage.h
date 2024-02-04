@@ -8,16 +8,16 @@ class SocketMessage : public SocketData
 {
 public:
     SocketMessage();
+    SocketMessage(QString &message);
 
-    virtual SocketDataType type();
+    virtual SocketDataType type() override;
 
-    void setMessage(QString &msg);
-    QString getMessage();
+    virtual QDataStream& readStream(QDataStream &ds) override;
+    virtual QDataStream& writeStream(QDataStream &ds) override;
 
 private:
-    QString username;
-    QString message;
-    QDateTime dateTime;
+    QString _message;
+    QDateTime _dateTime;
 };
 
 #endif // SOCKETMESSAGE_H
