@@ -63,10 +63,14 @@ void SocketService::onReadyRead() {
         SocketMessage sm;
 
         readStream >> sm;
+
+        //qDebug() << "FRIEND IP: " << sm.getIpAddress();
         for (QTcpSocket* socket : _sockets) {
-            if (socket != sender)
-                write(socket, sm);
-                qDebug() << "Sending msg";
+            if (sm.getIpAddress() == socket->peerAddress()) {
+                if (socket != sender)
+                    write(socket, sm);
+            }
+            //qDebug() << "SOCKET IP: " << socket->peerAddress();
         }
     }
 }

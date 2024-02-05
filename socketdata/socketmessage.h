@@ -1,15 +1,16 @@
 #ifndef SOCKETMESSAGE_H
 #define SOCKETMESSAGE_H
 
-#include "qdatetime.h"
+#include "qhostaddress.h"
 #include "socketdata.h"
 
 class SocketMessage : public SocketData
 {
 public:
     SocketMessage();
-    SocketMessage(QString &message, QString username = "Username");
+    SocketMessage(QHostAddress ip, QString message, QString username = "Username");
 
+    QHostAddress getIpAddress();
     QString getMessage();
     QString getUsername();
 
@@ -21,7 +22,7 @@ public:
 private:
     QString _username;
     QString _message;
-    QDateTime _dateTime;
+    QHostAddress _ip;
 };
 
 #endif // SOCKETMESSAGE_H
